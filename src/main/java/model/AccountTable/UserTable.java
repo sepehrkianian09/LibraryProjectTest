@@ -58,10 +58,11 @@ public class UserTable extends Database {
 
     public void editTheField(Packages.EditFieldPackage editFieldPackage, String userName) throws SQLException {
         Database.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Users SET ? = ? WHERE Username = ?");
-        preparedStatement.setString(1, editFieldPackage.getField());
-        preparedStatement.setString(2, editFieldPackage.getNewValue());
-        preparedStatement.setString(3, userName);
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Users SET "
+                + editFieldPackage.getField() +"= ? WHERE Username = ?;");
+
+        preparedStatement.setString(1, editFieldPackage.getNewValue());
+        preparedStatement.setString(2, userName);
         preparedStatement.execute();
     }
 

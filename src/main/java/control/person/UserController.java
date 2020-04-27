@@ -52,8 +52,10 @@ public class UserController extends Controller {
         try {
             if(!userTable.isPassWordCorrect(new Packages.LoginPackage(UserController.getLoginUserName(), changePassWordPackage.getOldPassWord()))){
                 return "Old Password is Not Correct.";
-            } else if(!isPassWordValid(changePassWordPackage.getNewPassWord())){
+            } else if(!isPassWordValid(changePassWordPackage.getNewPassWord())) {
                 return "New Password is Not Valid.";
+            } else if(changePassWordPackage.getOldPassWord().equals(changePassWordPackage.getNewPassWord())) {
+                return "The Two Passwords are Duplicate";
             } else {
                 userTable.editTheField(new Packages.EditFieldPackage("Password", changePassWordPackage.getNewPassWord()), UserController.getLoginUserName());
                 return "Password Changed Successfully.";
