@@ -8,16 +8,20 @@ public class Database {
     protected static String localDBUrl = "jdbc:sqlite:database\\database.sqlite";
     protected static boolean hasInit = false;
 
-    protected static Connection getConnection() throws SQLException, ClassNotFoundException {
+    protected static void getConnection() throws SQLException {
         if(!hasInit)
             initDataBase();
         if(connection == null)
             connection = DriverManager.getConnection(localDBUrl);
-        return connection;
     }
 
-    protected static void initDataBase() throws ClassNotFoundException {
-        Class.forName("org.sqlite.JDBC");
+    protected static void initDataBase() {
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
         Connection connection = null;
         File file = new File("database");
         file.mkdir();
@@ -25,7 +29,7 @@ public class Database {
         try {
             connection = DriverManager.getConnection(localDBUrl);
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT name FROM sqlitemaster WHERE name = 'Users'");
+            ResultSet resultSet = statement.executeQuery("SELECT name FROM sqlite_master WHERE name = 'Users'");
             if(!resultSet.next()){
                 statement.execute("CREATE TABLE Users("
                         + "Username VARCHAR(16),"
@@ -37,14 +41,14 @@ public class Database {
                         + ");");
             }
 
-            resultSet = statement.executeQuery("SELECT name FROM sqlitemaster WHERE name = 'AllBooks'");
+            resultSet = statement.executeQuery("SELECT name FROM sqlite_master WHERE name = 'AllBooks'");
             if(!resultSet.next()){
                 statement.execute("CREATE TABLE AllBooks("
                         + "ID INTEGER,"
                         + "Name VARCHAR(32),"
                         + "IsReceived BIT,"
-                        + "ReceiverName VARCHAR(16) NOT NULL,"
-                        + "DonatorName VARCHAR(16) NULLABLE,"
+                        + "ReceiverName VARCHAR(16),"
+                        + "DonatorName VARCHAR(16),"
                         + "primary key(ID)"
                         + ")");
             }

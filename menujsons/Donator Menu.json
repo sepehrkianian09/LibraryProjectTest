@@ -1,0 +1,11 @@
+{
+  "options" : [
+    "Show Personal Specs",
+    "Edit Field",
+    "Change Password"
+  ],
+  "name" : "Donator Menu",
+  "parentMenuName" : "Main Menu",
+  "isThereParentMenu" : "true",
+  "processorName" : "DonatorProcessor"
+}

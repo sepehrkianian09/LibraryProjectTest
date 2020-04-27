@@ -1,0 +1,10 @@
+{
+  "options" : [
+    "User Menu",
+    "Book Menu"
+  ],
+  "name" : "Main Menu",
+  "parentMenuName" : "null",
+  "isThereParentMenu" : "false",
+  "processorName" : "MainMenuProcessor"
+}

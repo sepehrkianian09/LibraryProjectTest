@@ -1,0 +1,10 @@
+{
+  "options" : [
+    "Register",
+    "Login"
+  ],
+  "name" : "IOAccount Menu",
+  "parentMenuName" : "Main Menu",
+  "isThereParentMenu" : "true",
+  "processorName" : "IOAccountProcessor"
+}
