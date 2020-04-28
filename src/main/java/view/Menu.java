@@ -2,6 +2,7 @@ package view;
 
 import com.google.gson.GsonBuilder;
 import view.process.Processor;
+import view.process.person.IOAccountProcessor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,7 +12,7 @@ import java.util.Scanner;
 
 public class Menu {
     public static Scanner scanner = new Scanner(System.in);
-    private static boolean flagBetweenReceiverMenuAndBooksMenu;
+    private static boolean flagBetweenReceiverMenuAndBooksMenu = false;
     protected String processorName;
     protected Processor processor;
     private ArrayList<String> options;
@@ -20,9 +21,9 @@ public class Menu {
     private boolean isThereParentMenu;
 
     public static Menu makeMenu(String menuName) {
-        if(menuName.equals("Books Menu")){
+        if(menuName.equals("Book Menu")){
             flagBetweenReceiverMenuAndBooksMenu = true;
-        } else if(menuName.equals("Receiver Menu")){
+        } else {
             flagBetweenReceiverMenuAndBooksMenu = false;
         }
 
@@ -50,6 +51,10 @@ public class Menu {
         return json.toString();
     }
 
+    public static boolean isFlagBetweenReceiverMenuAndBooksMenu() {
+        return flagBetweenReceiverMenuAndBooksMenu;
+    }
+
     public Menu show() {
         System.out.println(this.name + ":");
 
@@ -63,6 +68,9 @@ public class Menu {
 
         if(Processor.getLoginStatus())
             System.out.println((options.size() + 1) + ". " + "Logout");
+        else if(name.equals("Book Menu") && !Processor.getLoginStatus()){
+            System.out.println((options.size() + 1) + ". " + "Login");
+        }
 
         return this.execute();
     }
@@ -74,7 +82,7 @@ public class Menu {
 
         try {
             input = Integer.parseInt(scanner.nextLine().trim());
-            if (input > options.size() + 1 || (!Processor.getLoginStatus() && input == options.size() + 1) || input < 0)
+            if (input > options.size() + 1 || (!Processor.getLoginStatus() && input == options.size() + 1 && !name.equals("Book Menu")) || input < 0)
                 throw new InputIsBiggerThanExistingNumbers("input integer is invalid");
         } catch (NumberFormatException e) {
             System.out.println("please enter an integer");
@@ -92,6 +100,8 @@ public class Menu {
             }
         } else if(Processor.getLoginStatus() && input == options.size() + 1) {
             nextMenu = makeMenu(Processor.logOut(name));
+        } else if(!Processor.getLoginStatus() && input == options.size() + 1 && name.equals("Book Menu")){
+            nextMenu = makeMenu(IOAccountProcessor.getInstance().login());
         } else {
             if (processor.isThereFunctionWithName(this.options.get(input - 1)))
                 nextMenu = Menu.makeMenu(processor.executeTheFunctionWithName(this.options.get(input - 1)));
@@ -102,9 +112,9 @@ public class Menu {
         return nextMenu;
     }
 
-    public static String booksOrReceiver(){
+    public static String bookOrReceiver(){
         if(flagBetweenReceiverMenuAndBooksMenu){
-            return "Books Menu";
+            return "Book Menu";
         } else {
             return "Receiver Menu";
         }

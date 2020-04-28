@@ -39,17 +39,22 @@ public class ReceiverProcessor extends UserProcessor {
     }
 
     public String receiveBook(){
-        Packages.ReceivePackage receivePackage = new Packages.ReceivePackage();
-        receivePackage.setReceiverName(ReceiverController.getLoginUserName());
+        if(ReceiverController.getLoginStatus()) {
+            Packages.ReceivePackage receivePackage = new Packages.ReceivePackage();
+            receivePackage.setReceiverName(ReceiverController.getLoginUserName());
 
-        System.out.println("Please Enter The Book's Name :");
-        receivePackage.setBookName(scanner.nextLine().trim());
+            System.out.println("Please Enter The Book's Name :");
+            receivePackage.setBookName(scanner.nextLine().trim());
 
-        System.out.println("Please Enter The Donator's Name :");
-        receivePackage.setDonatorName(scanner.nextLine().trim());
+            System.out.println("Please Enter The Donator's Name :");
+            receivePackage.setDonatorName(scanner.nextLine().trim());
 
-        System.out.println(receiverController.controlReceivingABook(new Gson().toJson(receivePackage)));
-        return Menu.booksOrReceiver();
+            System.out.println(receiverController.controlReceivingABook(new Gson().toJson(receivePackage)));
+            return Menu.bookOrReceiver();
+        } else {
+            System.out.println("You must login first, man.");
+            return "Book Menu";
+        }
     }
 
     public String unReceiveBook(){

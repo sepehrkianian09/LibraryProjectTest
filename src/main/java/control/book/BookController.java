@@ -1,13 +1,13 @@
 package control.book;
 
 import control.Controller;
-import model.BookTable.BooksTable;
+import model.BookTable.BookTable;
 import model.Packages;
 
 import java.sql.SQLException;
 
 public class BookController extends Controller {
-    private static BooksTable booksTable = BooksTable.getInstance();
+    private static BookTable bookTable = BookTable.getInstance();
     private static BookController bookControllerInstance = null;
 
     private BookController(){
@@ -24,8 +24,8 @@ public class BookController extends Controller {
 
     public String controlShowingUnreceivedBooks(){
         try {
-            if(booksTable.isThereAnyUnreceivedBook()){
-                return Packages.BookPackage.toStringList(booksTable.getUnReceivedBooks());
+            if(bookTable.isThereAnyUnreceivedBook()){
+                return Packages.BookPackage.toStringList(bookTable.getUnReceivedBooks());
             } else {
                 return "There isn't Any Unreceived Book Left.";
             }

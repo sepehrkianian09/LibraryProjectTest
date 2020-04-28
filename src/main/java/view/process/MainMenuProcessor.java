@@ -2,6 +2,7 @@ package view.process;
 
 import control.Controller;
 import control.person.UserController;
+import view.Menu;
 
 import java.util.HashMap;
 
@@ -26,9 +27,13 @@ public class MainMenuProcessor extends Processor{
     }
 
     public String whereToGoInUserMenu(){
-        if(userController.getLoginStatus())
-            return UserController.getLoginType() + " Menu";
+        if(Menu.isFlagBetweenReceiverMenuAndBooksMenu()) {
+            return "Book Menu";
+        } else {
+            if (userController.getLoginStatus())
+                return UserController.getLoginType() + " Menu";
 
-        return "IOAccount Menu";
+            return "IOAccount Menu";
+        }
     }
 }

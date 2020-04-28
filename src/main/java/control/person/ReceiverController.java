@@ -1,13 +1,13 @@
 package control.person;
 
 import com.google.gson.Gson;
-import model.BookTable.BooksTable;
+import model.BookTable.BookTable;
 import model.Packages;
 
 import java.sql.SQLException;
 
 public class ReceiverController extends UserController{
-    private static BooksTable booksTable = BooksTable.getInstance();
+    private static BookTable bookTable = BookTable.getInstance();
     private static ReceiverController receiverControllerInstance = null;
 
     private ReceiverController(){
@@ -26,12 +26,12 @@ public class ReceiverController extends UserController{
         Packages.ReceivePackage receivePackage = new Gson().fromJson(receivePackageJson, Packages.ReceivePackage.class);
 
         try {
-            if(!booksTable.isThereBookWithThisSpecs(receivePackage)){
+            if(!bookTable.isThereBookWithThisSpecs(receivePackage)){
                 return "A Book With these Specs is Not Available.";
-            } else if(booksTable.isTheBookWithThisSpecsReceived(receivePackage)){
+            } else if(bookTable.isTheBookWithThisSpecsReceived(receivePackage)){
                 return "A Book With these Specs is Received Before";
             } else {
-                booksTable.receiveBook(receivePackage);
+                bookTable.receiveBook(receivePackage);
                 return "The Book Received Successfully.";
             }
         } catch (SQLException e) {
@@ -44,12 +44,12 @@ public class ReceiverController extends UserController{
         Packages.ReceivePackage receivePackage = new Gson().fromJson(receivePackageJson, Packages.ReceivePackage.class);
 
         try {
-            if(!booksTable.isThereBookWithThisSpecs(receivePackage)){
+            if(!bookTable.isThereBookWithThisSpecs(receivePackage)){
                 return "A Book With these Specs is Not Available.";
-            } else if(!booksTable.isTheBookWithThisSpecsReceived(receivePackage)){
+            } else if(!bookTable.isTheBookWithThisSpecsReceived(receivePackage)){
                 return "A Book With these Specs is Not Received Before";
             } else {
-                booksTable.unReceiveBook(receivePackage);
+                bookTable.unReceiveBook(receivePackage);
                 return "The Book UnReceived Successfully";
             }
         } catch (SQLException e) {
@@ -60,8 +60,8 @@ public class ReceiverController extends UserController{
 
     public String controlGettingTheReceivedBooks(String receiverName){
         try {
-            if(booksTable.hasReceivedABookBefore(receiverName)){
-                return Packages.BookPackage.toStringList(booksTable.getReceivedBooksByPerson(receiverName));
+            if(bookTable.hasReceivedABookBefore(receiverName)){
+                return Packages.BookPackage.toStringList(bookTable.getReceivedBooksByPerson(receiverName));
             } else {
                 return "You haven't Received A Book Before.";
             }

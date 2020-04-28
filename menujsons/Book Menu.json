@@ -3,8 +3,8 @@
     "Show Unreceived Books",
     "Receive Book"
   ],
-  "name" : "Books Menu",
+  "name" : "Book Menu",
   "parentMenuName" : "Main Menu",
   "isThereParentMenu" : "true",
-  "processorName" : "BooksProcessor"
+  "processorName" : "BookProcessor"
 }

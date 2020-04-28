@@ -8,14 +8,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class BooksTable extends Database {
-    private static BooksTable booksTableInstance = null;
+public class BookTable extends Database {
+    private static BookTable bookTableInstance = null;
 
-    public static BooksTable getInstance(){
-        if(booksTableInstance == null)
-            booksTableInstance = new BooksTable();
+    public static BookTable getInstance(){
+        if(bookTableInstance == null)
+            bookTableInstance = new BookTable();
 
-        return booksTableInstance;
+        return bookTableInstance;
     }
 
     public void addBook(Packages.BookPackage bookPackage) throws SQLException {

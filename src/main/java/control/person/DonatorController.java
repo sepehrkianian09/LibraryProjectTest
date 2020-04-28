@@ -1,13 +1,13 @@
 package control.person;
 
 import com.google.gson.Gson;
-import model.BookTable.BooksTable;
+import model.BookTable.BookTable;
 import model.Packages;
 
 import java.sql.SQLException;
 
 public class DonatorController extends UserController{
-    private static BooksTable booksTable = BooksTable.getInstance();
+    private static BookTable bookTable = BookTable.getInstance();
     private static DonatorController donatorControllerInstance = null;
 
     private DonatorController(){
@@ -26,10 +26,10 @@ public class DonatorController extends UserController{
         Packages.DonatePackage donatePackage = new Gson().fromJson(donatePackageJson, Packages.DonatePackage.class);
 
         try {
-            if(booksTable.isThereBookWithThisSpecs(donatePackage)){
+            if(bookTable.isThereBookWithThisSpecs(donatePackage)){
                 return "This Book has been Donated before.";
             } else {
-                booksTable.addBook(new Packages.BookPackage(donatePackage));
+                bookTable.addBook(new Packages.BookPackage(donatePackage));
                 return "Donated Successfully";
             }
         } catch (SQLException e) {
@@ -40,8 +40,8 @@ public class DonatorController extends UserController{
 
     public String controlGettingDonatedBooks(String donatorName){
         try {
-            if(booksTable.hasDonatedABookBefore(donatorName)){
-                return Packages.BookPackage.toStringList(booksTable.getDonatedBooksByPerson(donatorName));
+            if(bookTable.hasDonatedABookBefore(donatorName)){
+                return Packages.BookPackage.toStringList(bookTable.getDonatedBooksByPerson(donatorName));
             } else {
                return "You haven't Donated A Book Before.";
             }
