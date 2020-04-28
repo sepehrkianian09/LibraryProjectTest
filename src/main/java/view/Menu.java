@@ -54,6 +54,9 @@ public class Menu {
         for (int i = 0; i < this.options.size(); i++)
             System.out.println("" + (i + 1) + ". " + options.get(i));
 
+        if(Processor.getLoginStatus())
+            System.out.println((options.size() + 1) + ". " + "Logout");
+
         return this.execute();
     }
 
@@ -64,7 +67,7 @@ public class Menu {
 
         try {
             input = Integer.parseInt(scanner.nextLine().trim());
-            if (input > options.size() || input < 0)
+            if (input > options.size() + 1 || (!Processor.getLoginStatus() && input == options.size() + 1) || input < 0)
                 throw new InputIsBiggerThanExistingNumbers("input integer is invalid");
         } catch (NumberFormatException e) {
             System.out.println("please enter an integer");
@@ -80,6 +83,8 @@ public class Menu {
             } else {
                 nextMenu = null;
             }
+        } else if(Processor.getLoginStatus() && input == options.size() + 1) {
+            nextMenu = makeMenu(Processor.logOut(name));
         } else {
             if (processor.isThereFunctionWithName(this.options.get(input - 1)))
                 nextMenu = Menu.makeMenu(processor.executeTheFunctionWithName(this.options.get(input - 1)));

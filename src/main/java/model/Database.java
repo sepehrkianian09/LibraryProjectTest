@@ -41,9 +41,9 @@ public class Database {
                         + ");");
             }
 
-            resultSet = statement.executeQuery("SELECT name FROM sqlite_master WHERE name = 'AllBooks'");
+            resultSet = statement.executeQuery("SELECT name FROM sqlite_master WHERE name = 'Books'");
             if(!resultSet.next()){
-                statement.execute("CREATE TABLE AllBooks("
+                statement.execute("CREATE TABLE Books("
                         + "ID INTEGER,"
                         + "Name VARCHAR(32),"
                         + "IsReceived BIT,"

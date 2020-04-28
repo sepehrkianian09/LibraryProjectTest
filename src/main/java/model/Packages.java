@@ -62,6 +62,7 @@ public class Packages {
         //ID?
         private String name;
         private boolean isReceived;
+        private String donatorName;
         private String receiverName;
 
         public String getName() {
@@ -96,7 +97,6 @@ public class Packages {
             this.donatorName = donatorName;
         }
 
-        private String donatorName;
     }
 
     public static class LoginPackage{
@@ -178,5 +178,39 @@ public class Packages {
         }
 
         String newPassWord;
+    }
+
+    public static class DonatePackage{
+        protected String donatorName;
+        protected String bookName;
+
+        public String getDonatorName() {
+            return donatorName;
+        }
+
+        public void setDonatorName(String donatorName) {
+            this.donatorName = donatorName;
+        }
+
+        public String getBookName() {
+            return bookName;
+        }
+
+        public void setBookName(String bookName) {
+            this.bookName = bookName;
+        }
+
+    }
+
+    public static class ReceivePackage extends DonatePackage{
+        String receiverName;
+
+        public String getReceiverName() {
+            return receiverName;
+        }
+
+        public void setReceiverName(String receiverName) {
+            this.receiverName = receiverName;
+        }
     }
 }

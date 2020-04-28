@@ -74,6 +74,7 @@ public class UserTable extends Database {
     }
 
     public Packages.UserPackage turnUserRecordIntoUserPackage(ResultSet userResultSet) throws SQLException {
+        userResultSet.next();
         Packages.UserPackage userPackage = new Packages.UserPackage();
         userPackage.setUserName(userResultSet.getString("Username"));
         userPackage.setPassWord(userResultSet.getString("Password"));

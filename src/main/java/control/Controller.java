@@ -28,4 +28,6 @@ public abstract class Controller {
     public static void setLoginStatus(boolean newLoginStatus){
         Controller.hasLoggedIn = newLoginStatus;
     }
+
+
 }
