@@ -5,11 +5,14 @@ import view.process.FunctioningOption;
 import view.process.Processor;
 import view.process.person.ReceiverProcessor;
 
+import java.util.HashMap;
+
 public class BooksProcessor extends Processor {
     private static BookController bookController = BookController.getInstance();
     private static BooksProcessor booksProcessorInstance = null;
 
-    protected BooksProcessor(){
+    private BooksProcessor(){
+        functionsHashMap = new HashMap<String, FunctioningOption>();
         functionsHashMap.put("Show Unreceived Books", new FunctioningOption() {
             public String doTheThing() {
                 return showUnreceivedBooks();
