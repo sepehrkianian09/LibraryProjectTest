@@ -1,6 +1,5 @@
 package model.BookTable;
 
-import com.google.gson.Gson;
 import model.Database;
 import model.Packages;
 
@@ -9,14 +8,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class BookTable extends Database {
-    private static BookTable bookTableInstance = null;
+public class BooksTable extends Database {
+    private static BooksTable booksTableInstance = null;
 
-    public static BookTable getInstance(){
-        if(bookTableInstance == null)
-            bookTableInstance = new BookTable();
+    public static BooksTable getInstance(){
+        if(booksTableInstance == null)
+            booksTableInstance = new BooksTable();
 
-        return bookTableInstance;
+        return booksTableInstance;
     }
 
     public void addBook(Packages.BookPackage bookPackage) throws SQLException {
@@ -51,6 +50,13 @@ public class BookTable extends Database {
         ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.next();
         return resultSet.getBoolean("IsReceived");
+    }
+
+    public boolean isThereAnyUnreceivedBook() throws SQLException {
+        Database.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Books WHERE IsReceived = ?;");
+        preparedStatement.setBoolean(1, false);
+        return preparedStatement.executeQuery().next();
     }
 
     public boolean hasDonatedABookBefore(String donatorName) throws SQLException {
@@ -92,7 +98,7 @@ public class BookTable extends Database {
         preparedStatement.execute();
     }
 
-    public ArrayList<Packages.BookPackage> getNotReceivedBooks() throws SQLException {
+    public ArrayList<Packages.BookPackage> getUnReceivedBooks() throws SQLException {
         Database.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Books WHERE IsReceived = ?;");
         preparedStatement.setBoolean(1, false);

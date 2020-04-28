@@ -3,6 +3,7 @@ package view.process.person;
 import com.google.gson.Gson;
 import control.person.ReceiverController;
 import model.Packages;
+import view.Menu;
 import view.process.FunctioningOption;
 
 import java.util.HashMap;
@@ -48,7 +49,7 @@ public class ReceiverProcessor extends UserProcessor {
         receivePackage.setDonatorName(scanner.nextLine().trim());
 
         System.out.println(receiverController.controlReceivingABook(new Gson().toJson(receivePackage)));
-        return "Receiver Menu";
+        return Menu.booksOrReceiver();
     }
 
     public String unReceiveBook(){

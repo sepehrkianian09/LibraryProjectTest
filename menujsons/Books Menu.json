@@ -1,0 +1,10 @@
+{
+  "options" : [
+    "Show Unreceived Books",
+    "Receive Book"
+  ],
+  "name" : "Books Menu",
+  "parentMenuName" : "Main Menu",
+  "isThereParentMenu" : "true",
+  "processorName" : "BooksProcessor"
+}

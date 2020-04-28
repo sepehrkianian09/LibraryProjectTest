@@ -2,6 +2,7 @@ package view.process;
 
 import control.Controller;
 import view.Menu;
+import view.process.book.BooksProcessor;
 import view.process.person.DonatorProcessor;
 import view.process.person.IOAccountProcessor;
 import view.process.person.ReceiverProcessor;
@@ -21,7 +22,7 @@ public abstract class Processor {
         processesHashMap.put("IOAccountProcessor", IOAccountProcessor.getInstance());
         processesHashMap.put("DonatorProcessor", DonatorProcessor.getInstance());
         processesHashMap.put("ReceiverProcessor", ReceiverProcessor.getInstance());
-
+        processesHashMap.put("BooksProcessor", BooksProcessor.getInstance());
     }
 
     public static String logOut(String menuName){

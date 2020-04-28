@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Packages {
     public static class UserPackage{
         private String userName;
@@ -113,6 +115,16 @@ public class Packages {
                     "   isReceived : " + isReceived +
                     "   donatorName : '" + donatorName + '\'' +
                     "   receiverName : '" + receiverName + '\'';
+        }
+
+        public static String toStringList(ArrayList<BookPackage> bookPackages){
+            StringBuilder booksList = new StringBuilder();
+
+            for(Packages.BookPackage bookPackage : bookPackages)
+                booksList.append((bookPackages.indexOf(bookPackage) + 1) + ". " + bookPackage.toString() + '\n');
+
+            booksList.deleteCharAt(booksList.length() - 1);
+            return booksList.toString();
         }
     }
 

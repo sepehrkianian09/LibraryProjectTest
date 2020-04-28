@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 public class Menu {
     public static Scanner scanner = new Scanner(System.in);
+    private static boolean flagBetweenReceiverMenuAndBooksMenu;
     protected String processorName;
     protected Processor processor;
     private ArrayList<String> options;
@@ -19,6 +20,12 @@ public class Menu {
     private boolean isThereParentMenu;
 
     public static Menu makeMenu(String menuName) {
+        if(menuName.equals("Books Menu")){
+            flagBetweenReceiverMenuAndBooksMenu = true;
+        } else if(menuName.equals("Receiver Menu")){
+            flagBetweenReceiverMenuAndBooksMenu = false;
+        }
+
         String json = "";
 
         try {
@@ -93,6 +100,14 @@ public class Menu {
         }
 
         return nextMenu;
+    }
+
+    public static String booksOrReceiver(){
+        if(flagBetweenReceiverMenuAndBooksMenu){
+            return "Books Menu";
+        } else {
+            return "Receiver Menu";
+        }
     }
 
     private class InputIsBiggerThanExistingNumbers extends Exception {

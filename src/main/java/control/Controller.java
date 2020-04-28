@@ -29,5 +29,4 @@ public abstract class Controller {
         Controller.hasLoggedIn = newLoginStatus;
     }
 
-
 }
