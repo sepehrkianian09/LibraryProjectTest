@@ -1,6 +1,8 @@
 package view.process.person;
 
+import com.google.gson.Gson;
 import control.person.ReceiverController;
+import model.Packages;
 import view.process.FunctioningOption;
 
 import java.util.HashMap;
@@ -11,7 +13,21 @@ public class ReceiverProcessor extends UserProcessor {
 
     protected ReceiverProcessor(){
         super();
-
+        functionsHashMap.put("Get Received Books", new FunctioningOption() {
+            public String doTheThing() {
+                return getReceivedBooks();
+            }
+        });
+        functionsHashMap.put("Receive Book", new FunctioningOption() {
+            public String doTheThing() {
+                return receiveBook();
+            }
+        });
+        functionsHashMap.put("UnReceive Book", new FunctioningOption() {
+            public String doTheThing() {
+                return unReceiveBook();
+            }
+        });
     }
 
     public static ReceiverProcessor getInstance(){
@@ -19,5 +35,38 @@ public class ReceiverProcessor extends UserProcessor {
             receiverProcessorInstance = new ReceiverProcessor();
 
         return receiverProcessorInstance;
+    }
+
+    public String receiveBook(){
+        Packages.ReceivePackage receivePackage = new Packages.ReceivePackage();
+        receivePackage.setReceiverName(ReceiverController.getLoginUserName());
+
+        System.out.println("Please Enter The Book's Name :");
+        receivePackage.setBookName(scanner.nextLine().trim());
+
+        System.out.println("Please Enter The Donator's Name :");
+        receivePackage.setDonatorName(scanner.nextLine().trim());
+
+        System.out.println(receiverController.controlReceivingABook(new Gson().toJson(receivePackage)));
+        return "Receiver Menu";
+    }
+
+    public String unReceiveBook(){
+        Packages.ReceivePackage receivePackage = new Packages.ReceivePackage();
+        receivePackage.setReceiverName(ReceiverController.getLoginUserName());
+
+        System.out.println("Please Enter The Book's Name :");
+        receivePackage.setBookName(scanner.nextLine().trim());
+
+        System.out.println("Please Enter The Donator's Name :");
+        receivePackage.setDonatorName(scanner.nextLine().trim());
+
+        System.out.println(receiverController.controlUnReceivingABook(new Gson().toJson(receivePackage)));
+        return "Receiver Menu";
+    }
+
+    public String getReceivedBooks(){
+        System.out.println(receiverController.controlGettingTheReceivedBooks(ReceiverController.getLoginUserName()));
+        return "Receiver Menu";
     }
 }

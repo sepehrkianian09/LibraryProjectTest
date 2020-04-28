@@ -65,6 +65,9 @@ public class Packages {
         private String donatorName;
         private String receiverName;
 
+        public BookPackage() {
+        }
+
         public String getName() {
             return name;
         }
@@ -97,6 +100,20 @@ public class Packages {
             this.donatorName = donatorName;
         }
 
+        public BookPackage(DonatePackage donatePackage){
+            this.name = donatePackage.getBookName();
+            this.donatorName = donatePackage.getDonatorName();
+            this.isReceived = false;
+            this.receiverName = null;
+        }
+
+        @Override
+        public String toString() {
+            return "name : '" + name + '\'' +
+                    "   isReceived : " + isReceived +
+                    "   donatorName : '" + donatorName + '\'' +
+                    "   receiverName : '" + receiverName + '\'';
+        }
     }
 
     public static class LoginPackage{

@@ -2,7 +2,10 @@
   "options" : [
     "Show Personal Specs",
     "Edit Field",
-    "Change Password"
+    "Change Password",
+    "Get Received Books",
+    "Receive Book",
+    "UnReceive Book"
   ],
   "name" : "Receiver Menu",
   "parentMenuName" : "Main Menu",

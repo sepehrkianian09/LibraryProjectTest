@@ -53,6 +53,20 @@ public class BookTable extends Database {
         return resultSet.getBoolean("IsReceived");
     }
 
+    public boolean hasDonatedABookBefore(String donatorName) throws SQLException {
+        Database.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Books WHERE DonatorName = ?;");
+        preparedStatement.setString(1, donatorName);
+        return preparedStatement.executeQuery().next();
+    }
+
+    public boolean hasReceivedABookBefore(String receiverName) throws SQLException {
+        Database.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Books WHERE ReceiverName = ?;");
+        preparedStatement.setString(1, receiverName);
+        return preparedStatement.executeQuery().next();
+    }
+
     public void receiveBook(Packages.ReceivePackage receivePackage) throws SQLException {
         Database.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Books SET IsReceived = ?, ReceiverName = ?" +
@@ -78,7 +92,7 @@ public class BookTable extends Database {
         preparedStatement.execute();
     }
 
-    public ArrayList<Packages.BookPackage> getAllNotReceivedBooks() throws SQLException {
+    public ArrayList<Packages.BookPackage> getNotReceivedBooks() throws SQLException {
         Database.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Books WHERE IsReceived = ?;");
         preparedStatement.setBoolean(1, false);
@@ -92,7 +106,7 @@ public class BookTable extends Database {
         return bookPackages;
     }
 
-    public ArrayList<Packages.BookPackage> getAllDonatedBooksByPerson(String donatorName) throws SQLException {
+    public ArrayList<Packages.BookPackage> getDonatedBooksByPerson(String donatorName) throws SQLException {
         Database.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Books WHERE DonatorName = ?");
         preparedStatement.setString(1, donatorName);
@@ -106,7 +120,7 @@ public class BookTable extends Database {
         return bookPackages;
     }
 
-    public ArrayList<Packages.BookPackage> getAllReceivedBooksByPerson(String receiverName) throws SQLException {
+    public ArrayList<Packages.BookPackage> getReceivedBooksByPerson(String receiverName) throws SQLException {
         Database.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Books WHERE ReceiverName = ?");
         preparedStatement.setString(1, receiverName);
